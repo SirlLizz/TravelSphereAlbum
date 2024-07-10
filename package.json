@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@photo-sphere-viewer/core": "^5.8.2",
+    "express": "^4.19.2"
+  }
+}

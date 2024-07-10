@@ -1,0 +1,19 @@
+{
+  	"travels": 
+	[
+		{
+			"name": "Новокуйбышевск",
+			"date": "18.05.2024",
+			"image_tree": 
+			[
+				{
+					"photo_name": "Вид сверху",
+					"image_path": "novokuibyshevsk/1.jpg",
+					"link_points": [
+						{"x": 500, "y": 500, "link_number":0}
+					]
+				}
+			]
+		}
+	]
+}
