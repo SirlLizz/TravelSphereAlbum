@@ -1,9 +1,9 @@
 let info = {}
-let current_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Blue_Marble_2002.png/3840px-Blue_Marble_2002.png";
+let base_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Blue_Marble_2002.png/3840px-Blue_Marble_2002.png";
 
 const viewer = new PhotoSphereViewer.Viewer({
 	container: document.querySelector("#viewer"),
-	panorama: current_image,
+	panorama: base_image,
 	navbar: [
 		"zoom",
 		"caption",

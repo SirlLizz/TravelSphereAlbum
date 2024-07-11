@@ -4,9 +4,12 @@ let path = require('path');
 let app = express();
 let fs = require('fs');
 let server = http.Server(app);
-
 let info = require('./source/info.json').travels;
-const CHUNK_SIZE = 4 * 1024 * 1024; // 4MB
+
+if(!checkInfoJson()){
+    throw "Incorrect Json!";
+}
+
 
 app.set('port', 5000);
 app.use('/static', express.static(__dirname + '/static'));
@@ -22,19 +25,12 @@ server.listen(5000, function() {
 
 app.get('/info', function (request, response) {
     response.send(info)
-})
-
-// app.get('/photo/:travel/:path', function (request, response) {
-//     if(request.params.path.match("([^/:*?<>|\\\\]+(.(jpg|png|gif))$)")){
-//         response.sendFile(__dirname+ '/source/images/' + request.params.travel + "/" + request.params.path);
-//     } else{
-//         response.sendStatus(400)
-//     }
-// })
+});
 
 app.get('/photo/:travel/:path/:start', (request, response) => {
     if(request.params.path.match("([^/:*?<>|\\\\]+(.(jpg|png|gif))$)")){
         const imagePath = __dirname+ '/source/images/' + request.params.travel + "/" + request.params.path;
+        const CHUNK_SIZE = 4 * 1024 * 1024; // 4MB
         const stat = fs.statSync(imagePath);
         const totalSize = stat.size;
     
@@ -56,5 +52,17 @@ app.get('/photo/:travel/:path/:start', (request, response) => {
     } else {
         response.sendStatus(400)
     }
-  });
+});
+
+function checkInfoJson(){
+    if(!info || info.length == 0){
+        return false;
+    }
+    for (const travel of info) {
+        if (!travel.name) {
+          return false;
+        }
+    }
+    return true;
+}
   
