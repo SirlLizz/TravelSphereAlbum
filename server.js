@@ -2,9 +2,11 @@ let express = require('express');
 let http = require('http');
 let path = require('path');
 let app = express();
+let fs = require('fs');
 let server = http.Server(app);
 
 let info = require('./source/info.json').travels;
+const CHUNK_SIZE = 4 * 1024 * 1024; // 4MB
 
 app.set('port', 5000);
 app.use('/static', express.static(__dirname + '/static'));
@@ -22,10 +24,37 @@ app.get('/info', function (request, response) {
     response.send(info)
 })
 
-app.get('/photo/:travel/:path', function (request, response) {
+// app.get('/photo/:travel/:path', function (request, response) {
+//     if(request.params.path.match("([^/:*?<>|\\\\]+(.(jpg|png|gif))$)")){
+//         response.sendFile(__dirname+ '/source/images/' + request.params.travel + "/" + request.params.path);
+//     } else{
+//         response.sendStatus(400)
+//     }
+// })
+
+app.get('/photo/:travel/:path/:start', (request, response) => {
     if(request.params.path.match("([^/:*?<>|\\\\]+(.(jpg|png|gif))$)")){
-        response.sendFile(__dirname+ '/source/images/' + request.params.travel + "/" + request.params.path);
-    } else{
+        const imagePath = __dirname+ '/source/images/' + request.params.travel + "/" + request.params.path;
+        const stat = fs.statSync(imagePath);
+        const totalSize = stat.size;
+    
+        let start = Number(request.params.start);
+        if (isNaN(start)) start = 0;
+    
+        const end = Math.min(start + CHUNK_SIZE, totalSize) - 1;
+        const chunkSize = (end - start) + 1;
+    
+        response.writeHead(206, {
+            'Content-Range': `bytes ${start}-${end}/${totalSize}`,
+            'Accept-Ranges': 'bytes',
+            'Content-Length': chunkSize,
+            'Content-Type': 'image/jpeg'
+        });
+    
+        const stream = fs.createReadStream(imagePath, { start, end });
+        stream.pipe(response);
+    } else {
         response.sendStatus(400)
     }
-})
+  });
+  
