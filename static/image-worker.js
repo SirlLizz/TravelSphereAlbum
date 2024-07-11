@@ -4,6 +4,7 @@ async function getImage(filePath){
 	let start = 0;
 	let chunks = [];
 	let fetchNextChunk = true;
+    document.querySelector(".loading-popup").style.display = "block";
 
 	while (fetchNextChunk) {
 		const chunk = await fetchChunk(filePath, start);
@@ -15,6 +16,7 @@ async function getImage(filePath){
 			start += CHUNK_SIZE;
 		}
 	}
+    document.querySelector(".loading-popup").style.display = "none";
 
 	const imageBlob = new Blob(chunks, { type: 'image/jpeg' });
 	return URL.createObjectURL(imageBlob);

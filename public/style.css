@@ -3,6 +3,22 @@
     height: 90vh;
 }
 
+.loading-popup{
+    display: none;
+    position: absolute;
+    width: 150px;
+    top: 10px;
+    left: calc(50% - 75px);
+    z-index: 2;
+    margin: auto;
+    flex: 0 0 auto;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin: 0 5px;
+    text-align: center;
+    background-color: #ffffff91;
+}
+
 .scrolling-wrapper {
     display: flex;
     flex-wrap: nowrap;
@@ -14,7 +30,7 @@
     .item {
         height: 5vh;
         flex: 0 0 auto;
-        background-color: #ffd6d6;;
+        background-color: #ffd6d6;
         border-radius: 20px;
         padding: 10px 20px;
         margin: 0 5px;
