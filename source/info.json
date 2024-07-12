@@ -18,6 +18,7 @@
 			"image_tree": 
 			[
 				{
+					"photo_name": "Привал у конюшен",
 					"image_path": "shiryaevo/1.jpg",
 					"link_points": [
 						{"x": 50, "y": 1800, "link_number":1}

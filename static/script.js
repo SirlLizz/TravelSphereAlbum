@@ -5,15 +5,16 @@ const viewer = new PhotoSphereViewer.Viewer({
 	container: document.querySelector("#viewer"),
 	panorama: base_image,
 	navbar: [
-		"autorotate",
 		"zoom",
+		"markers",
+		"markersList",
 		"caption",
 		"fullscreen",
 	],
 	minFov: 10,
 	maxFov: 100,
 	plugins: [
-        [PhotoSphereViewer.MarkersPlugin],
+        [PhotoSphereViewer.MarkersPlugin]
 	]
 });
 const markersPlugin = viewer.getPlugin(PhotoSphereViewer.MarkersPlugin);
@@ -35,10 +36,12 @@ async function getInfo(){
 }
 
 async function openImage(num_travel=0, num_image=0){
-    imagePath = info[num_travel].image_tree[num_image].image_path;
+	let imageInfo = info[num_travel].image_tree[num_image];
+    let imagePath = imageInfo.image_path;
 	markersPlugin.clearMarkers();
 	let url = await getImage(imagePath);
 	await viewer.setPanorama(url);
+	viewer.setOption('caption', imageInfo.photo_name ? imageInfo.photo_name : '');
 	setMarkers(num_travel, num_image);
 }
 
@@ -59,11 +62,12 @@ function setMarkers(num_travel, num_image){
 	let points = info[num_travel].image_tree[num_image].link_points;
 	if(points){
 		points.map((point)=>{
+			let captionNext = info[num_travel].image_tree[point.link_number].photo_name;
 			markersPlugin.addMarker({
 				id: '#' + Math.random(),
 				circle: 20,
 				position: { textureX: point.x, textureY: point.y },
-				tooltip: 'Next point',
+				tooltip: captionNext ? captionNext : 'Слудующая точка',
 				data:{
 					num_travel: num_travel,
 					link_number: point.link_number
