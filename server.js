@@ -6,10 +6,7 @@ let fs = require('fs');
 let server = http.Server(app);
 let info = require('./source/info.json').travels;
 
-if(!checkInfoJson()){
-    throw "Incorrect Json!";
-}
-
+checkInfoJson()
 
 app.set('port', 5000);
 app.use('/static', express.static(__dirname + '/static'));
@@ -56,13 +53,36 @@ app.get('/photo/:travel/:path/:start', (request, response) => {
 
 function checkInfoJson(){
     if(!info || info.length == 0){
-        return false;
+        throw "Doesn't contains travels!";
     }
-    for (const travel of info) {
+    info.map((travel, num_travel) => {
         if (!travel.name) {
-          return false;
+            throw `Travel with number ${num_travel} doesn't contains name!`;
         }
-    }
+        //Date не обязательное поле
+        if(!travel.image_tree || travel.image_tree.length == 0){
+            throw `Travel with number ${num_travel} doesn't contains images!`;
+        }
+        let image_count = travel.image_tree.length;
+        travel.image_tree.map((image, num_image) => {
+            if (!image.image_path) {
+                throw `Travel with number ${num_travel} doesn't have path by ${num_image} image!`;
+            }
+            if(!image.image_path.match("([^/:*?<>|\\\\]+(.(jpg|png|gif))$)")){
+                throw `Travel with number ${num_travel} have incorrect path by ${num_image} image!`;
+            }
+            if(image.link_points && image.link_points.length != 0){//Тоже могут быть пустыми
+                image.link_points.map((point, num_point) => {
+                    if(!point.x || !point.y){
+                        throw `Travel with number ${num_travel} have incorrect coords by ${num_point} point by ${num_image} image!`;
+                    }
+                    if(point.link_number >= image_count){
+                        throw `Travel with number ${num_travel} have incorrect link number by ${num_point} point by ${num_image} image!`;
+                    }
+                })
+            }
+        })
+    })
     return true;
 }
   
