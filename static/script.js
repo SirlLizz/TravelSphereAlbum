@@ -1,6 +1,6 @@
 let info = {}
 let base_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Blue_Marble_2002.png/3840px-Blue_Marble_2002.png";
-const baseUrl = 'https://photo-sphere-viewer-data.netlify.app/assets/';
+
 const viewer = new PhotoSphereViewer.Viewer({
 	container: document.querySelector("#viewer"),
 	panorama: base_image,
@@ -47,7 +47,7 @@ async function openImage(num_travel=0, num_image=0){
 
 function setTravelsPoint(){
     info.map((travel, num_travel) => {
-		let item = document.createElement('div');
+		let item = document.createElement('button');
 		item.className="item";
 		item.innerHTML += `<h2>${travel.name}</h2>`;
 		item.addEventListener('click', (event) => {

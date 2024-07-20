@@ -5,6 +5,7 @@ let app = express();
 let fs = require('fs');
 let server = http.Server(app);
 let info = require('./source/info.json').travels;
+const CHUNK_SIZE = 4 * 1024 * 1024; // 4MB
 
 checkInfoJson()
 
@@ -24,10 +25,13 @@ app.get('/info', function (request, response) {
     response.send(info)
 });
 
+app.get('/chunk_size', function (request, response) {
+    response.send({CHUNK_SIZE})
+});
+
 app.get('/photo/:travel/:path/:start', (request, response) => {
     if(request.params.path.match("([^/:*?<>|\\\\]+(.(jpg|png|gif))$)")){
         const imagePath = __dirname+ '/source/images/' + request.params.travel + "/" + request.params.path;
-        const CHUNK_SIZE = 4 * 1024 * 1024; // 4MB
         const stat = fs.statSync(imagePath);
         const totalSize = stat.size;
     

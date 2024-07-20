@@ -1,4 +1,4 @@
-const CHUNK_SIZE = 4 * 1024 * 1024; // 4MB
+let CHUNK_SIZE = getChunkSize();
 
 async function getImage(filePath){
 	let start = 0;
@@ -26,4 +26,12 @@ async function fetchChunk(filePath, start) {
 	const response = await fetch(`photo/${filePath}/${start}`);
 	const blob = await response.blob();
 	return blob;
+}
+
+function getChunkSize() {
+	fetch(`chunk_size`).then(
+		response => response.json()
+	).then(data => {
+		CHUNK_SIZE = data.CHUNK_SIZE;
+	});
 }
