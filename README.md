@@ -1,0 +1,1 @@
+Viewer to check and load 360 sphere photo
