@@ -5,9 +5,9 @@ import NavBar from '../components/NavBar';
 function Viewer() {
     return (
         <Container>
-            <NavBar/>
+            <NavBar />
             <div>
-                <p>This is the album page!</p>
+                <p>This is the Viewer page!</p>
             </div>
         </Container>
     );
