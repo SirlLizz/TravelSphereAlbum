@@ -4,7 +4,7 @@ import NavBar from '../components/NavBar';
 
 function Travel() {
     return (
-        <Container>
+        <Container fluid="xxl">
             <NavBar />
             <div>
                 <p>This is the Travel page!</p>

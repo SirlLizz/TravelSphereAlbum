@@ -8,8 +8,8 @@ class NavBar extends React.Component {
     render() {
         return (
             <Navbar expand="lg" className="bg-body-tertiary">
-            <Container>
-                <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
+            <Container fluid="md">
+                <Navbar.Brand href="/">Travel Sphere Album</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
