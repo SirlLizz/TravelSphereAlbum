@@ -8,7 +8,7 @@ const UploadFile = props => {
   const handleFileSubmit = (e) => {
     e.preventDefault();
     if (!file) return alert("Please add file name!");
-    const fileExtension = file.name.split(".").reverse()[0];
+    const fileExtension = file.name.split(".").reverse()[0].toLowerCase();
     const allowedExtensions = ["png", "jpg", "jpeg", "gif", "svg"];
 
     if (allowedExtensions.indexOf(fileExtension) === -1) {
