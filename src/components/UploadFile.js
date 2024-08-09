@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, Modal, ProgressBar } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 
 const UploadFile = props => {
   const [showModal, setShowModal] = useState(false);
@@ -27,29 +27,29 @@ const UploadFile = props => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <Form onSubmit={handleFileSubmit} encType="multipart/form-data">
-              <Form.Group controlId="formBasicFolderName" className="my-2">
-                <Form.Control 
-                  type="file" 
-                  onChange={(e) => {
-                    setFile(e.target.files[0]);
-                  }}
-                />
-              </Form.Group>
-              <Form.Group controlId="formBasicFolderSubmit" className="mt-5">
-                <Button
-                  type="submit"
-                  className="form-control"
-                  variant="primary"
-                >
-                  Upload File
-                </Button>
-              </Form.Group>
-            </Form>
+          <Form onSubmit={handleFileSubmit} encType="multipart/form-data">
+            <Form.Group className="my-2">
+              <Form.Control 
+                type="file" 
+                onChange={(e) => {
+                  setFile(e.target.files[0]);
+                }}
+              />
+            </Form.Group>
+            <Form.Group className="mt-5">
+              <Button
+                type="submit"
+                className="form-control"
+                variant="primary"
+              >
+                Upload File
+              </Button>
+            </Form.Group>
+          </Form>
         </Modal.Body>
       </Modal>
       <Button className="mx-auto my-3"  onClick={() => setShowModal(true)} variant="outline-dark" >
-          Upload File
+        Upload File
       </Button>
     </>
   );

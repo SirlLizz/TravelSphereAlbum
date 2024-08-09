@@ -6,12 +6,14 @@ import Viewer from "./pages/Viewer";
 import Album from "./pages/Album";
 import Travel from "./pages/Travel";
 import NoMatch from "./pages/NoMatch";
+import NavBar from './components/NavBar';
 
 
 class App extends React.Component {
     render() {
         return (
         <Router>
+            <NavBar />
             <Routes>
                 <Route exact path="/" element={<Home/>} />
                 <Route exact path="/album" element={ <Album/> } />

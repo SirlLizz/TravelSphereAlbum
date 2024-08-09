@@ -18,9 +18,9 @@ class ViewerWindow extends React.Component {
 
     render() {
         return (
-            <div class="photo-sphere-container">
+            <div className="flex-container flex-column">
                 <UploadFile fileHandler = {this.fileHandler}/>
-                <div class="photo-sphere-stretch ">
+                <div className="flex-stretch ">
                     {this.state.file && (<ReactPhotoSphereViewer
                         src={URL.createObjectURL(this.state.file)}
                         height={"100%"}

@@ -7,8 +7,8 @@ import Navbar from 'react-bootstrap/Navbar';
 class NavBar extends React.Component {
     render() {
         return (
-            <Navbar expand="lg" className="bg-body-tertiary">
-            <Container fluid="md">
+            <Navbar expand="xxl" className="bg-body-tertiary">
+            <Container fluid="xl">
                 <Navbar.Brand href="/">Travel Sphere Album</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">

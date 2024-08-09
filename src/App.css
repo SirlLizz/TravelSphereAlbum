@@ -2,12 +2,11 @@
     background-color: #282c34;
 }
 
-.photo-sphere-container{
+.flex-container {
     display: flex;
-    flex-direction: column; 
     height: 100%;
 }
 
-.photo-sphere-stretch {
+.flex-stretch {
     flex-grow: 1; 
 }
