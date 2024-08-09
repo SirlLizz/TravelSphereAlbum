@@ -28,25 +28,15 @@ const UploadFile = props => {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleFileSubmit} encType="multipart/form-data">
-<<<<<<< HEAD
             <Form.Group className="my-2">
               <Form.Control 
                 type="file" 
-=======
-            <Form.Group controlId="formBasicFolderName" className="my-2">
-              <Form.Control
-                type="file"
->>>>>>> 316c81bd9d00f530d0682ab7c681f39f449f2562
                 onChange={(e) => {
                   setFile(e.target.files[0]);
                 }}
               />
             </Form.Group>
-<<<<<<< HEAD
             <Form.Group className="mt-5">
-=======
-            <Form.Group controlId="formBasicFolderSubmit" className="mt-5">
->>>>>>> 316c81bd9d00f530d0682ab7c681f39f449f2562
               <Button
                 type="submit"
                 className="form-control"
@@ -58,11 +48,7 @@ const UploadFile = props => {
           </Form>
         </Modal.Body>
       </Modal>
-<<<<<<< HEAD
       <Button className="mx-auto my-3"  onClick={() => setShowModal(true)} variant="outline-dark" >
-=======
-      <Button className="mx-auto my-3" onClick={() => setShowModal(true)} variant="outline-dark" >
->>>>>>> 316c81bd9d00f530d0682ab7c681f39f449f2562
         Upload File
       </Button>
     </>
