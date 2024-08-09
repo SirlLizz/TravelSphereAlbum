@@ -1,0 +1,12 @@
+.App {
+    background-color: #282c34;
+}
+
+.flex-container {
+    display: flex;
+    height: 100%;
+}
+
+.flex-stretch {
+    flex-grow: 1; 
+}
