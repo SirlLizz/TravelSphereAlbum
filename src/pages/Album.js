@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
+import BaseScreen from "../components/FileManager/BaseScreen";
 
-function Album() {
-    return (
-        <>
-            <p>This is the Album page!</p>
-        </>
-    );
-}
+const Album = () => {
+  return (
+    <BaseScreen/>
+  );
+};
+
 export default Album;
