@@ -16,7 +16,7 @@ class App extends React.Component {
             <NavBar />
             <Routes>
                 <Route exact path="/" element={<Home/>} />
-                <Route exact path="/album/*" element={ <Album/> } />
+                <Route exact path="/album" element={ <Album/> } />
                 <Route exact path="/viewer" element={ <Viewer/> } />
                 <Route exact path="/travel" element={ <Travel/> } />
                 <Route component={ NoMatch } />

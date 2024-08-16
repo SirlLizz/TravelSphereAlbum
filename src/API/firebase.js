@@ -15,15 +15,26 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const firestore = firebase.firestore();
-
-export const database = {
-  users: firestore.collection('users'),
-  docs: firestore.collection('docs'),
-  files: firestore.collection('files'),
-  date: firebase.firestore.FieldValue.serverTimestamp(),
-};
-
 export const storage = firebase.storage();
 
-export const auth = firebase.auth();
+export async function getFolders(path){
+  const listRef = storage.ref(path);
+  const res = await listRef.listAll();
+
+  return res.prefixes.map((prefix) => ({
+    name: prefix.name.split('/').pop(),
+    path: prefix.name,
+  }));
+
+}
+
+export async function getFiles(path){
+  const listRef = storage.ref(path);
+  const res = await listRef.listAll();
+
+  return await Promise.all(res.items.map( async (item) => ({
+    name: item.name.split('/').pop(),
+    path: item.name,
+    url: await item.getDownloadURL(),
+  })));
+}

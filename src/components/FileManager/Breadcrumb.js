@@ -1,64 +1,37 @@
 import React from "react";
-import { Breadcrumb, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Breadcrumb } from "react-bootstrap";
 
-const BreadCrum = ({ currentFolder }) => {
-  const history = useNavigate();
+const BreadCrumb = ({ currentFolder, setCurrentFolder }) => {
+  const pathParts = currentFolder.split('/').filter(part => part !== '');
   return (
-    <Breadcrumb>
-      {currentFolder && currentFolder.data.path.length > 0 ? (
-        <>
-          <Breadcrumb.Item
-            linkAs={Button}
+    <Breadcrumb className="mt-2">
+      <Breadcrumb.Item
             linkProps={{
               variant: "white",
               className: "text-primary",
             }}
-            onClick={() => history.push("/dashboard")}
-            className="text-decoration-none"
+            onClick={() => setCurrentFolder("/")}
+            className="link-underline-opacity-0"
           >
             Root
           </Breadcrumb.Item>
-          {currentFolder.data.path.map((folder, index) => (
+          {pathParts.map((folder, index) => (
             <Breadcrumb.Item
               key={index}
-              linkAs={Button}
+
               linkProps={{
                 variant: "white",
                 className: "text-primary",
               }}
               onClick={() =>
-                history.push(
-                  `/dashboard/folder/${folder.id}`
-                )
+                setCurrentFolder(pathParts.slice(0, index + 1).join('/'))
               }
             >
-              {folder.name}
+              {folder}
             </Breadcrumb.Item>
           ))}
-          <Breadcrumb.Item as={Button} disabled variant="white" active>
-            {currentFolder.data.name}
-          </Breadcrumb.Item>
-        </>
-      ) : (
-        <>
-          <Breadcrumb.Item
-            linkAs={Button}
-            linkProps={{
-              variant: "white",
-              className: "text-primary",
-            }}
-            onClick={() => history.push("/dashboard")}
-          >
-            Root
-          </Breadcrumb.Item>
-          <Breadcrumb.Item as={Button} variant="white" disabled active>
-            {currentFolder.data.name}
-          </Breadcrumb.Item>
-        </>
-      )}
     </Breadcrumb>
   );
 };
 
-export default BreadCrum;
+export default BreadCrumb;
