@@ -6,7 +6,8 @@ class ViewerWindow extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            file: undefined
+            file: props.file ?? undefined,
+            isURL: typeof props.file == 'string'
         }
     }
 
@@ -17,12 +18,13 @@ class ViewerWindow extends React.Component {
       }
 
     render() {
+        const {file, isURL} = this.state;
         return (
             <div className="flex-container flex-column">
-                <UploadFile fileHandler = {this.fileHandler}/>
+                {!isURL &&(<UploadFile fileHandler = {this.fileHandler}/>)}
                 <div className="flex-stretch ">
-                    {this.state.file && (<ReactPhotoSphereViewer
-                        src={URL.createObjectURL(this.state.file)}
+                    {file && (<ReactPhotoSphereViewer
+                        src={isURL ? file : URL.createObjectURL(file)}
                         height={"100%"}
                         width={"100%"}
                     ></ReactPhotoSphereViewer>
