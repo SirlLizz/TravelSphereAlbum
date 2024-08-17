@@ -27,7 +27,7 @@ const FileComponent = ({data}) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="p-0">
-          <ViewerWindow file={data.url}/>
+          <ViewerWindow url={data.url}/>
         </Modal.Body>
       </Modal>
     )}

@@ -1,37 +1,49 @@
-import React from 'react';
-import { ReactPhotoSphereViewer } from "react-photo-sphere-viewer";
+import React, {useState, useEffect} from 'react';
+import { Viewer } from "@photo-sphere-viewer/core";
 import UploadFile from './UploadFile';
+import Form from 'react-bootstrap/Form';
+import "@photo-sphere-viewer/core/index.css";
 
-class ViewerWindow extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            file: props.file ?? undefined,
-            isURL: typeof props.file == 'string'
+const ViewerWindow = ({ url = undefined }) => {
+    const [isLittlePlanet, setIsLittlePlanet] = useState(false); 
+    const [isURL] = useState(typeof url == 'string'); 
+    const [file, setFile] = useState(url); 
+    const sphereElementRef = React.createRef();
+
+    useEffect(() => {
+        if(file){
+            const shperePlayerInstance = new Viewer({
+                container: sphereElementRef.current,
+                panorama: isURL ? file : URL.createObjectURL(file),
+                size: { height: "100%", width: "100%" },
+                fisheye: isLittlePlanet ? 2 : 0,
+                maxFov: isLittlePlanet ? 150 : 100
+            });
+        
+            return () => {
+            shperePlayerInstance.destroy();
+            };
         }
-    }
 
-    fileHandler = (newFile) => {
-        this.setState({
-          file: newFile
-        })
-      }
+      }, [file, isLittlePlanet]); 
 
-    render() {
-        const {file, isURL} = this.state;
-        return (
-            <div className="flex-container flex-column">
-                {!isURL &&(<UploadFile fileHandler = {this.fileHandler}/>)}
-                <div className="flex-stretch ">
-                    {file && (<ReactPhotoSphereViewer
-                        src={isURL ? file : URL.createObjectURL(file)}
-                        height={"100%"}
-                        width={"100%"}
-                    ></ReactPhotoSphereViewer>
-                    )}
-                </div>
+    return (
+        <div className="flex-container flex-column">
+            <div className="mx-auto my-3 d-flex align-items-center">
+                {!isURL &&(<UploadFile fileHandler = {setFile}/>)}
+                <Form>
+                    <Form.Check
+                        type="switch"
+                        id="custom-switch"
+                        label="Little Planet"
+                        onChange={()=>{setIsLittlePlanet(!isLittlePlanet)}}
+                    />
+                </Form>
             </div>
-        );
-    }
+            <div className="flex-stretch ">
+                {file && (<div ref={sphereElementRef} style={{ height: "100%", width: "100%"}}/>)}
+            </div>
+        </div>
+    );
 }
 export default ViewerWindow;
