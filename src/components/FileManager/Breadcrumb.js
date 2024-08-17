@@ -3,33 +3,24 @@ import { Breadcrumb } from "react-bootstrap";
 
 const BreadCrumb = ({ currentFolder, setCurrentFolder }) => {
   const pathParts = currentFolder.split('/').filter(part => part !== '');
+  pathParts.unshift('Root');
   return (
     <Breadcrumb className="mt-2">
-      <Breadcrumb.Item
-            linkProps={{
-              variant: "white",
-              className: "text-primary",
-            }}
-            onClick={() => setCurrentFolder("/")}
-            className="link-underline-opacity-0"
-          >
-            Root
-          </Breadcrumb.Item>
-          {pathParts.map((folder, index) => (
-            <Breadcrumb.Item
-              key={index}
-
-              linkProps={{
-                variant: "white",
-                className: "text-primary",
-              }}
-              onClick={() =>
-                setCurrentFolder(pathParts.slice(0, index + 1).join('/'))
-              }
-            >
-              {folder}
-            </Breadcrumb.Item>
-          ))}
+      {pathParts.map((folder, index) => (
+        <Breadcrumb.Item
+          key={index}
+          className="border h-100 p-1 rounded-2"
+          linkProps={{
+            variant: "white",
+            className: "text-primary text-decoration-none",
+          }}
+          onClick={() =>
+            setCurrentFolder(pathParts.slice(1, index + 1).join('/'))
+          }
+        >
+          {folder}
+        </Breadcrumb.Item>
+      ))}
     </Breadcrumb>
   );
 };
