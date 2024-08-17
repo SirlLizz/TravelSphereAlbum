@@ -15,9 +15,22 @@ const ViewerWindow = ({ url = undefined }) => {
             const shperePlayerInstance = new Viewer({
                 container: sphereElementRef.current,
                 panorama: isURL ? file : URL.createObjectURL(file),
-                size: { height: "100%", width: "100%" },
                 fisheye: isLittlePlanet ? 2 : 0,
-                maxFov: isLittlePlanet ? 150 : 100
+                maxFov: isLittlePlanet ? 150 : 100,
+                navbar: [
+                    'zoom',
+                    {
+                        id: 'little-planet-button',
+                        content: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 432 432"><path stroke="#fff" fill="none" stroke-width="20" d="M209,15a195,195 0 1,0 2,0zm1,0v390m195-195H15M59,90a260,260 0 0,0 302,0 m0,240 a260,260 0 0,0-302,0M195,20a250,250 0 0,0 0,382 m30,0 a250,250 0 0,0 0-382" /></svg>`,
+                        title: 'Hello world',
+                        className: 'custom-button',
+                        onClick: () => {
+                            setIsLittlePlanet(!isLittlePlanet);
+                        },
+                    },
+                    'download',
+                    'fullscreen',
+                ],
             });
         
             return () => {
@@ -29,17 +42,11 @@ const ViewerWindow = ({ url = undefined }) => {
 
     return (
         <div className="flex-container flex-column">
-            <div className="mx-auto my-3 d-flex align-items-center">
-                {!isURL &&(<UploadFile fileHandler = {setFile}/>)}
-                <Form>
-                    <Form.Check
-                        type="switch"
-                        id="custom-switch"
-                        label="Little Planet"
-                        onChange={()=>{setIsLittlePlanet(!isLittlePlanet)}}
-                    />
-                </Form>
-            </div>
+            {!isURL &&(
+                <div className="mx-auto my-3 d-flex align-items-center">
+                    <UploadFile fileHandler = {setFile}/>
+                </div>
+            )}
             <div className="flex-stretch ">
                 {file && (<div ref={sphereElementRef} style={{ height: "100%", width: "100%"}}/>)}
             </div>
