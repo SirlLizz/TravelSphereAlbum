@@ -48,7 +48,7 @@ const UploadFile = props => {
           </Form>
         </Modal.Body>
       </Modal>
-      <Button className="mx-auto my-3"  onClick={() => setShowModal(true)} variant="outline-dark" >
+      <Button className="mx-3"  onClick={() => setShowModal(true)} variant="outline-dark" >
         Upload File
       </Button>
     </>
