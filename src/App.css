@@ -10,3 +10,7 @@
 .flex-stretch {
     flex-grow: 1; 
 }
+
+.theme-color {
+    background-color: #8c5d3f;
+}
